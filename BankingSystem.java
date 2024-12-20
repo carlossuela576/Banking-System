@@ -16,7 +16,7 @@ import java.util.Scanner;
  * that variables inside loops cannot be referenced outside or after that loop (as per the rule of procedural programming).
  * Still finding a way to make it work, Lord please help me.
  * 
- * pending adjustments:
+ * adjustments made 12-20-24
  * error-handling, not allowing users to withdraw when withdraw balance was greater than (>) bankAmount
  */
 
@@ -36,10 +36,10 @@ public class BankingSystem {
         double bankAmount = 0;
 
         for (int i = 0; i < numofAcc; i++) {
-            System.out.print("Enter account number " + i + ": ");
+            System.out.print("Enter account number " + (i+1) + ": ");
             accountNum[i] = sc.nextLong();
             
-            System.out.print("Enter PIN code " + i + ": ");
+            System.out.print("Enter PIN code " + (i+1) + ": ");
             pinCode[i] = sc.nextLong();
         }
 
@@ -109,8 +109,15 @@ public class BankingSystem {
                     System.out.println("(1) Yes" + "\n" + "(2) No");
                     int userChoiceW = sc.nextInt();
                     if (userChoiceW == 1){
-                        bankAmount -= userWithdraw;
-                        System.out.println("Your new account balance is " + bankAmount);
+                        //error handling, does not allow user to withdraw amounts bigger than their account balance.
+                        if( bankAmount > userWithdraw){
+                            bankAmount -= userWithdraw;
+                            System.out.println("Your new account balance is " + bankAmount);
+                        }
+                        else{
+                            System.out.println("Insufficient funds, please try again");
+                        }
+                        
                     }
                     else if (userChoiceW == 2){
                         System.out.println("Have a nice day!");
