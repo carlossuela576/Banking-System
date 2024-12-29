@@ -1,24 +1,6 @@
 import java.util.Scanner;
 
-/*adjustments to be made----
- * dynamic accounts, enabling users to create accounts
- * error-handling, not allowing users to withdraw when withdraw balance was greater than (>) bankAmount
- * use arrays as temporary storage
- */
-
-/*adjustments made 12-17-24
- * dynamic accounts, this enables users to create an account and use it as a login info
- * used an array as temporary storage
- * 
- * Problems:
- * was planning to put the "fake data" code segment in a loop or selective statements to check if an array is empty or not, if it's empty 
- * (or the user didn't input any value in the fields) the program would supposedly not proceed to the sign-in code block. The problem is
- * that variables inside loops cannot be referenced outside or after that loop (as per the rule of procedural programming).
- * Still finding a way to make it work, Lord please help me.
- * 
- * adjustments made 12-20-24
- * error-handling, not allowing users to withdraw when withdraw balance was greater than (>) bankAmount
- */
+//This is a simple banking system that allows users to create an account, sign in, deposit, withdraw and logout.
 
 public class BankingSystem {
     public static void main(String[] agrs){
@@ -28,45 +10,36 @@ public class BankingSystem {
         System.out.println("WELCOME! create an account");
         
         //fake data
-        System.out.print("Enter number of accounts: ");
-        int numofAcc = sc.nextInt();
-
-        long accountNum[] = new long[numofAcc];
-        long pinCode[] = new long[numofAcc];
+        long accountNum;
+        long pinCode;
         double bankAmount = 0;
 
-        for (int i = 0; i < numofAcc; i++) {
-            System.out.print("Enter account number " + (i+1) + ": ");
-            accountNum[i] = sc.nextLong();
-            
-            System.out.print("Enter PIN code " + (i+1) + ": ");
-            pinCode[i] = sc.nextLong();
-        }
+        System.out.print("Enter your account number: ");
+        accountNum = sc.nextLong();
+        System.out.print("Enter your PIN code: ");
+        pinCode = sc.nextLong();
 
 
         //Account/sign in authentication
         boolean isAuthenticated = false;
+        System.out.println("Sign in to your account");
+        System.out.println("-------------------------");
 
-        for (int i = 2; i >= 0; i--) {
+        for (int i = 3; i >= 0; i--) {
             System.out.print("Please enter your account number: ");
             long inaccountNum = sc.nextLong();
             System.out.print("Please enter your PIN code: ");
             long inpinCode = sc.nextLong();
 
             
-            for (int j = 0; j < numofAcc; j++){
-                if (inaccountNum == accountNum[j] && inpinCode == pinCode[j]){
-                    isAuthenticated = true;
-                    System.out.println("Access granted!");
-                    break;
-                }
-                else {
-                    System.out.println("Invalid account number or PIN code, please try again" + "\n" +"Attempts left: " + i);
-                }
-            }
-
-            if (isAuthenticated){
+            if (inaccountNum == accountNum && inpinCode == pinCode){
+                isAuthenticated = true;
+                System.out.println("You have successfully logged in");
                 break;
+            }
+            else{
+                System.out.println("Invalid account number or PIN code, please try again");
+                System.out.println("You have " + i + " attempts left");
             }
         }
 
