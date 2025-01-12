@@ -1,25 +1,5 @@
 import java.util.Scanner;
 
-/*adjustments to be made----
- * dynamic accounts, enabling users to create accounts
- * error-handling, not allowing users to withdraw when withdraw balance was greater than (>) bankAmount
- * use arrays as temporary storage
- */
-
-/*adjustments made 12-17-24
- * dynamic accounts, this enables users to create an account and use it as a login info
- * used an array as temporary storage
- * 
- * Problems:
- * was planning to put the "fake data" code segment in a loop or selective statements to check if an array is empty or not, if it's empty 
- * (or the user didn't input any value in the fields) the program would supposedly not proceed to the sign-in code block. The problem is
- * that variables inside loops cannot be referenced outside or after that loop (as per the rule of procedural programming).
- * Still finding a way to make it work, Lord please help me.
- * 
- * adjustments made 12-20-24
- * error-handling, not allowing users to withdraw when withdraw balance was greater than (>) bankAmount
- */
-
 public class BankingSystem {
     public static void main(String[] agrs){
         Scanner sc = new Scanner(System.in);
@@ -28,33 +8,51 @@ public class BankingSystem {
         System.out.println("WELCOME! create an account");
         
         //fake data
-        System.out.print("Enter number of accounts: ");
-        int numofAcc = sc.nextInt();
-
-        long accountNum[] = new long[numofAcc];
-        long pinCode[] = new long[numofAcc];
+        long accountNum[] = {0, 0, 0, 0, 0};
+        long pinCode[] = {0, 0, 0, 0, 0};
         double bankAmount = 0;
 
-        for (int i = 0; i < numofAcc; i++) {
-            System.out.print("Enter account number " + (i+1) + ": ");
-            accountNum[i] = sc.nextLong();
+        //account initialization & selection
+        boolean accInit = true;
+        int choiceRep = 0;
+
+        while(accInit){
+            //input for account creation
+            System.out.print("Enter account number: ");
+            accountNum[choiceRep] = sc.nextLong();
+
+            System.out.print("Enter PIN code: ");
+            pinCode[choiceRep] = sc.nextLong();
+            choiceRep++;
             
-            System.out.print("Enter PIN code " + (i+1) + ": ");
-            pinCode[i] = sc.nextLong();
+            //fill up input buffer from previous integer input
+            //DON'T REMOVE THIS, removing would cause skipping on the "initChoice" input
+            sc.nextLine();
+
+            //selection for another account creation or not
+            System.out.println("Would you like to create another account? \n(y) yes \n(n) no");
+            String initChoice = sc.nextLine();
+
+            if(initChoice.equalsIgnoreCase("y")){
+                accInit = true;
+            }
+            else{
+                accInit = false;
+            }
         }
 
 
         //Account/sign in authentication
         boolean isAuthenticated = false;
 
-        for (int i = 2; i >= 0; i--) {
+        for (int i = 5; i >= 0; i--) {
             System.out.print("Please enter your account number: ");
             long inaccountNum = sc.nextLong();
             System.out.print("Please enter your PIN code: ");
             long inpinCode = sc.nextLong();
 
             
-            for (int j = 0; j < numofAcc; j++){
+            for (int j = 0; j < choiceRep; j++){
                 if (inaccountNum == accountNum[j] && inpinCode == pinCode[j]){
                     isAuthenticated = true;
                     System.out.println("Access granted!");
