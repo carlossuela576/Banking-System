@@ -59,7 +59,7 @@ public class BankingSystem {
                     break;
                 }
                 else {
-                    System.out.println("Invalid account number or PIN code, please try again" + "\n" +"Attempts left: " + i);
+                    System.out.println("Invalid account number or PIN code, please try again \nAttempts left: " + i);
                 }
             }
 
@@ -75,7 +75,7 @@ public class BankingSystem {
             System.out.println("Your account balance is: " + bankAmount);
             System.out.println("---------------------");
             System.out.println("Choose your transaction:");
-            System.out.println("(1) Deposit" + "\n" + "(2) Withdraw" + "\n" + "(3) Logout");
+            System.out.println("(1) Deposit \n(2) Withdraw \n(3) Logout");
             int userTransac = sc.nextInt();
 
             switch (userTransac){
@@ -85,7 +85,7 @@ public class BankingSystem {
                     double userDeposit = sc.nextDouble();
                     System.out.println("Are you sure you want to deposit an amount of " + userDeposit);
                     System.out.println("Your account balance is " + bankAmount);
-                    System.out.println("(1) Yes" + "\n" + "(2) No");
+                    System.out.println("(1) Yes \n(2) No");
                     int userChoiceD = sc.nextInt();
                     if (userChoiceD == 1){
                         bankAmount += userDeposit;
@@ -104,7 +104,7 @@ public class BankingSystem {
                     double userWithdraw = sc.nextDouble();
                     System.out.println("Are you sure you want to withdraw an amount of " + userWithdraw);
                     System.out.println("Your account balance is " + bankAmount);
-                    System.out.println("(1) Yes" + "\n" + "(2) No");
+                    System.out.println("(1) Yes \n(2) No");
                     int userChoiceW = sc.nextInt();
                     if (userChoiceW == 1){
                         //error handling, does not allow user to withdraw amounts bigger than their account balance.
